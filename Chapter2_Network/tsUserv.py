@@ -10,11 +10,13 @@ address = (host, port)
 udp_server_sock = socket(AF_INET, SOCK_DGRAM)
 udp_server_sock.bind(address)
 
-while True:
-    print('waiting for connection...')
-    data, address = udp_server_sock.recvfrom(buf_size)
-    udp_server_sock.sendto(bytes('[{}] {}'.format(ctime(), data), 'utf-8'), address)
-    print('...received from and returned to: {}'.format(address))
-
-udp_server_sock.close()
-
+try:
+    while True:
+        print('waiting for connection...')
+        data, address = udp_server_sock.recvfrom(buf_size)
+        udp_server_sock.sendto(bytes('[{}] {}'.format(ctime(), data), 'utf-8'), address)
+        print('...received from and returned to: {}'.format(address))
+except Exception as e:
+    print("connection fail! occurred by {}".format(e))
+finally:
+    udp_server_sock.close()
