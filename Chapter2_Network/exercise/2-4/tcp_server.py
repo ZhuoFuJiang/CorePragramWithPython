@@ -10,8 +10,8 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.bind(address)
 sock.listen(5)
 
-while True:
-    try:
+try:
+    while True:
         print('waiting for connection...')
         client_sock, address = sock.accept()
         print('connected from: {}'.format(address))
@@ -22,6 +22,6 @@ while True:
             chunk = client_sock.recv(buf_size)
 
         client_sock.close()
-    except KeyboardInterrupt:
-        print("Bye Bye")
-        sock.close()
+except KeyboardInterrupt:
+    print("Bye Bye")
+    sock.close()
